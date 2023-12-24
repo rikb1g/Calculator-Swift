@@ -8,25 +8,29 @@
 import SwiftUI
 import SwiftData
 
-@main
-struct AppsiniciaisApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+struct AppsiniciaisApp: View {
+    @State var isOn = false
+    
+    var body: some View {
+        VStack {
+            if isOn{
+                Circle()
+                .frame(maxHeight: 200)
+                .foregroundColor(.yellow)
+            }
+            Button("Press me") {
+                isOn.toggle()
+            }
         }
-    }()
+    }
+}
 
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
+
+struct AppsiniciaisApp_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            AppsiniciaisApp()
         }
-        .modelContainer(sharedModelContainer)
     }
 }
